@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -77,11 +78,15 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_external_web) {
             Log.d("==>","Will display external web page");
+            myWebView.loadUrl("https://www.his.se/");
+            showExternalWebPage();
             return true;
         }
 
         if (id == R.id.action_internal_web) {
             Log.d("==>","Will display internal web page");
+            myWebView.loadUrl("file:///android_asset/webpage.html");
+            showInternalWebPage();
             return true;
         }
 
