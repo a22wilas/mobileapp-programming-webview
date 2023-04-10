@@ -69,6 +69,6 @@ if (id == R.id.action_internal_web) {
     return true;
 }
 ```
-![img_1.png](ExternalwebPagePic.png)
-![img_1.png](InternalWebpagePic.png)
+
+![InternalWebpagePic.png](InternalWebpagePic.png)
 
