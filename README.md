@@ -1,42 +1,52 @@
-
-# Rapport
-
-**Skriv din rapport här!**
-
-_Du kan ta bort all text som finns sedan tidigare_.
-
-## Följande grundsyn gäller dugga-svar:
-
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
-
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
-
+Ändrade namn på appen till WebView i mappen /app/src/main/res/values/
 ```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
-    }
-}
+<string name="app_name">WebView</string>
 ```
-
-Bilder läggs i samma mapp som markdown-filen.
-
-![](android.png)
-
-Läs gärna:
-
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+La till internet åtkomst för appen genom en kod rad i mappen /app/src/main/AndroidManifest.xml
+``
+<uses-permission android:name="android.permission.INTERNET" />
+``
+I mappen /app/src/main/res/layout/activity_main.xml skapades ett webview element och fick id = my_webview
+``
+<WebView
+android:id="@+id/my_webview"
+android:layout_width="0dp"
+android:layout_height="0dp"
+``
+Skapade en privat member variabel med namnet myWebView och kopplade ihop den med webview elementet. 
+Var tvungen att lägga till en import för att kunna använda Webview typen för member variabeln.
+``
+import android.webkit.WebView;
+private WebView myWebView;
+myWebView = findViewById(R.id.my_webview);
+``
+La till en WebViewClient som kopplades ihop med variabeln myWebView och likadant med webview behövde en import göras för att kunna använda WebViewClient.
+``
+import android.webkit.WebViewClient;
+myWebView.setWebViewClient(new WebViewClient());
+``
+Satte igång så javascript går att utföra på appen
+``
+myWebView.getSettings().setJavaScriptEnabled(true);
+``
+Skapade en simpel HTML sida med en rubrik och en paragraf med lite styling som en asset i appen. Ligger i mappen /app/src/main/assets/webpage.html
+````
+<html>
+<head>
+    <style>
+        h1{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <p>Min WebView sida</p>
+</body>
+</html>
+````
+I mappen /app/src/main/java/com/example/webviewapp/MainActivity.java lades först kod in i if-satsen för external webpage för att kunna visa his hemsida.
+``
+myWebView.loadUrl("file:///android_asset/webpage.html");
+showInternalWebPage();
+``
